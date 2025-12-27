@@ -2,29 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Clock, UserCheck, TrendingUp, Shield } from "lucide-react";
-
-const features = [
-  {
-    icon: Clock,
-    title: "ניסיון",
-    description: "עם ניסיון מעל לשתי עשורים, המכללה שלנו חוותה את כל מה שניתן לחוות בענף ובאה להעביר לכם את הדרכים ושיטות סחר הנכונות.",
-  },
-  {
-    icon: UserCheck,
-    title: "ליווי אישי",
-    description: "כל התלמידים אצלינו עוברים ליווי צמוד לאורך הדרך, המדריכים שלנו ידריכו אותכם ויתלוו אליכם בשיעורים העיוניים ובחו״ל.",
-  },
-  {
-    icon: TrendingUp,
-    title: "תוצאות",
-    description: "בוגרי המכללה מצליחים בשוק העבודה ובעסקים שלהם, עם ידע מעשי ומקצועי שמאפשר להם להתחיל לעבוד מיד.",
-  },
-  {
-    icon: Shield,
-    title: "אמינות",
-    description: "המכללה פועלת בשקיפות מלאה ומתחייבת לאיכות הוראה גבוהה ולתמיכה מתמשכת בסטודנטים.",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Counter = ({ value, suffix = "" }: { value: number; suffix?: string }) => {
   const [count, setCount] = useState(0);
@@ -61,6 +39,37 @@ const Counter = ({ value, suffix = "" }: { value: number; suffix?: string }) => 
 const AboutSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const features = [
+    {
+      icon: Clock,
+      title: t("about.expTitle"),
+      description: t("about.expDesc"),
+    },
+    {
+      icon: UserCheck,
+      title: t("about.supportTitle"),
+      description: t("about.supportDesc"),
+    },
+    {
+      icon: TrendingUp,
+      title: t("about.resultsTitle"),
+      description: t("about.resultsDesc"),
+    },
+    {
+      icon: Shield,
+      title: t("about.trustTitle"),
+      description: t("about.trustDesc"),
+    },
+  ];
+
+  const stats = [
+    { value: 25, suffix: "+", label: t("about.years") },
+    { value: 10000, suffix: "+", label: t("about.graduatesLabel") },
+    { value: 100, suffix: "+", label: t("about.partnersLabel") },
+    { value: 98, suffix: "%", label: t("about.satisfaction") },
+  ];
 
   return (
     <section id="about" className="py-24 bg-background relative overflow-hidden">
@@ -77,13 +86,13 @@ const AboutSection = () => {
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-4">
-            מי אנחנו
+            {t("about.badge")}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            המכללה המובילה לסחר בינלאומי
+            {t("about.title")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            עופרים מכללה לייבוא, יצוא וסחר בינלאומי, היא מהמובילות בתחום כבר למעלה מ-25 שנה. עם ניסיון עשיר, ידע מעמיק וקשרים גלובליים ענפים, אנו מעניקים לסטודנטים שלנו את הכלים והמיומנויות הנדרשים להצלחה.
+            {t("about.desc")}
           </p>
         </motion.div>
 
@@ -94,12 +103,7 @@ const AboutSection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
         >
-          {[
-            { value: 25, suffix: "+", label: "שנות פעילות" },
-            { value: 10000, suffix: "+", label: "בוגרים" },
-            { value: 100, suffix: "+", label: "חברות שותפות" },
-            { value: 98, suffix: "%", label: "שביעות רצון" },
-          ].map((stat, index) => (
+          {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, scale: 0.8 }}

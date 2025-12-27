@@ -2,19 +2,22 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "./ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageToggle from "./LanguageToggle";
 import ofarimLogo from "@/assets/ofarim-logo.jpg";
-
-const navLinks = [
-  { href: "#home", label: "ראשי" },
-  { href: "#about", label: "אודות" },
-  { href: "#courses", label: "קורסים" },
-  { href: "#features", label: "יתרונות" },
-  { href: "#contact", label: "צור קשר" },
-];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { href: "#home", label: t("nav.home") },
+    { href: "#about", label: t("nav.about") },
+    { href: "#courses", label: t("nav.courses") },
+    { href: "#features", label: t("nav.features") },
+    { href: "#contact", label: t("nav.contact") },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,13 +46,13 @@ const Navbar = () => {
             className="flex items-center gap-3"
             whileHover={{ scale: 1.02 }}
           >
-            <img src={ofarimLogo} alt="מכללת עופרים" className="w-12 h-12 rounded-xl object-contain" />
+            <img src={ofarimLogo} alt={t("nav.brand")} className="w-12 h-12 rounded-xl object-contain" />
             <div className="flex flex-col">
               <span className={`font-bold text-xl ${isScrolled ? "text-foreground" : "text-primary-foreground"}`}>
-                מכללת עופרים
+                {t("nav.brand")}
               </span>
               <span className={`text-xs ${isScrolled ? "text-muted-foreground" : "text-primary-foreground/80"}`}>
-                להיכנס למגרש הגדולים
+                {t("nav.slogan")}
               </span>
             </div>
           </motion.a>
@@ -72,27 +75,31 @@ const Navbar = () => {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
+            <LanguageToggle isScrolled={isScrolled} />
             <Button
               variant={isScrolled ? "outline" : "heroOutline"}
               size="default"
             >
               <Phone className="w-4 h-4" />
-              מחלקת יבוא
+              {t("nav.import")}
             </Button>
             <Button variant={isScrolled ? "default" : "hero"} size="default">
-              ייעוץ לימודים
+              {t("nav.consult")}
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`lg:hidden p-2 rounded-lg ${
-              isScrolled ? "text-foreground" : "text-primary-foreground"
-            }`}
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <LanguageToggle isScrolled={isScrolled} />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`p-2 rounded-lg ${
+                isScrolled ? "text-foreground" : "text-primary-foreground"
+              }`}
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -119,9 +126,9 @@ const Navbar = () => {
               <div className="flex flex-col gap-2 pt-4 border-t border-border">
                 <Button variant="outline">
                   <Phone className="w-4 h-4" />
-                  מחלקת יבוא
+                  {t("nav.import")}
                 </Button>
-                <Button>ייעוץ לימודים</Button>
+                <Button>{t("nav.consult")}</Button>
               </div>
             </div>
           </motion.div>

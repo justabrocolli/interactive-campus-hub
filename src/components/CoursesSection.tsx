@@ -2,61 +2,63 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowLeft, BookOpen, Ship, Building2, Plane, Package, FileText } from "lucide-react";
 import { Button } from "./ui/button";
-
-const courses = [
-  {
-    icon: Ship,
-    title: "יבוא ויצוא סחורה",
-    description: "לימוד מקיף על תהליכי יבוא ויצוא, כולל מכס, לוגיסטיקה ותיעוד בינלאומי.",
-    duration: "6 חודשים",
-    format: "היברידי",
-    color: "from-primary to-primary/70",
-  },
-  {
-    icon: Building2,
-    title: "סחר בינלאומי",
-    description: "הבנת השוק הגלובלי, משא ומתן בינלאומי והתאמה תרבותית לשווקים שונים.",
-    duration: "4 חודשים",
-    format: "פרונטלי",
-    color: "from-secondary to-secondary/70",
-  },
-  {
-    icon: Plane,
-    title: "לוגיסטיקה בינלאומית",
-    description: "ניהול שרשרת אספקה גלובלית, שילוח ימי ואווירי, ואחסנה בינלאומית.",
-    duration: "3 חודשים",
-    format: "אונליין",
-    color: "from-primary to-secondary",
-  },
-  {
-    icon: Package,
-    title: "ניהול מוצר",
-    description: "פיתוח מוצרים לשוק הבינלאומי, איכות ותקינה, אריזה ומיתוג.",
-    duration: "4 חודשים",
-    format: "היברידי",
-    color: "from-secondary to-primary",
-  },
-  {
-    icon: FileText,
-    title: "מכס ורגולציה",
-    description: "הכרת תקנות מכס, הסכמי סחר בינלאומיים ופטורים ממכסים.",
-    duration: "2 חודשים",
-    format: "אונליין",
-    color: "from-primary/80 to-primary",
-  },
-  {
-    icon: BookOpen,
-    title: "קורס מתקדם",
-    description: "תוכנית מקיפה לבעלי ניסיון הכוללת התמחות בשווקים ספציפיים.",
-    duration: "8 חודשים",
-    format: "פרונטלי",
-    color: "from-secondary/80 to-secondary",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CoursesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const courses = [
+    {
+      icon: Ship,
+      title: t("course.import"),
+      description: t("course.importDesc"),
+      duration: `6 ${t("courses.months")}`,
+      format: t("courses.hybrid"),
+      color: "from-primary to-primary/70",
+    },
+    {
+      icon: Building2,
+      title: t("course.trade"),
+      description: t("course.tradeDesc"),
+      duration: `4 ${t("courses.months")}`,
+      format: t("courses.frontal"),
+      color: "from-secondary to-secondary/70",
+    },
+    {
+      icon: Plane,
+      title: t("course.logistics"),
+      description: t("course.logisticsDesc"),
+      duration: `3 ${t("courses.months")}`,
+      format: t("courses.online"),
+      color: "from-primary to-secondary",
+    },
+    {
+      icon: Package,
+      title: t("course.product"),
+      description: t("course.productDesc"),
+      duration: `4 ${t("courses.months")}`,
+      format: t("courses.hybrid"),
+      color: "from-secondary to-primary",
+    },
+    {
+      icon: FileText,
+      title: t("course.customs"),
+      description: t("course.customsDesc"),
+      duration: `2 ${t("courses.months")}`,
+      format: t("courses.online"),
+      color: "from-primary/80 to-primary",
+    },
+    {
+      icon: BookOpen,
+      title: t("course.advanced"),
+      description: t("course.advancedDesc"),
+      duration: `8 ${t("courses.months")}`,
+      format: t("courses.frontal"),
+      color: "from-secondary/80 to-secondary",
+    },
+  ];
 
   return (
     <section id="courses" className="py-24 bg-muted/30 relative overflow-hidden">
@@ -75,13 +77,13 @@ const CoursesSection = () => {
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            הקורסים שלנו
+            {t("courses.badge")}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            מסלולי לימוד מגוונים
+            {t("courses.title")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            בחרו את המסלול המתאים לכם והתחילו את הדרך לקריירה מצליחה בסחר בינלאומי
+            {t("courses.desc")}
           </p>
         </motion.div>
 
@@ -124,7 +126,7 @@ const CoursesSection = () => {
 
                 {/* CTA */}
                 <Button variant="ghost" className="p-0 h-auto font-semibold text-primary hover:text-secondary group/btn">
-                  למידע נוסף
+                  {t("courses.more")}
                   <ArrowLeft className="w-4 h-4 group-hover/btn:-translate-x-1 transition-transform" />
                 </Button>
               </div>
@@ -140,7 +142,7 @@ const CoursesSection = () => {
           className="text-center mt-12"
         >
           <Button size="xl">
-            צפה בכל הקורסים
+            {t("courses.viewAll")}
             <ArrowLeft className="w-5 h-5" />
           </Button>
         </motion.div>

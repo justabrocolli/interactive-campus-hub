@@ -2,14 +2,17 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Play, Users, Award, Globe } from "lucide-react";
 import { Button } from "./ui/button";
 import WaveBackground from "./WaveBackground";
-
-const stats = [
-  { icon: Users, value: "10,000+", label: "בוגרים" },
-  { icon: Award, value: "25+", label: "שנות ניסיון" },
-  { icon: Globe, value: "100+", label: "חברות שותפות" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroSection = () => {
+  const { t } = useLanguage();
+
+  const stats = [
+    { icon: Users, value: "10,000+", label: t("hero.graduates") },
+    { icon: Award, value: "25+", label: t("hero.experience") },
+    { icon: Globe, value: "100+", label: t("hero.partners") },
+  ];
+
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       <WaveBackground />
@@ -29,7 +32,7 @@ const HeroSection = () => {
               transition={{ delay: 0.3 }}
               className="inline-block px-4 py-2 rounded-full bg-secondary/20 text-secondary-foreground text-sm font-medium mb-6"
             >
-              המכללה המובילה בישראל ליבוא ויצוא
+              {t("hero.badge")}
             </motion.span>
             
             <motion.h1
@@ -38,11 +41,11 @@ const HeroSection = () => {
               transition={{ delay: 0.4 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 leading-tight"
             >
-              מכללת עופרים
+              {t("hero.title1")}
               <br />
-              <span className="text-secondary">יבוא ויצוא סחורה</span>
+              <span className="text-secondary">{t("hero.title2")}</span>
               <br />
-              וסחר בינלאומי
+              {t("hero.title3")}
             </motion.h1>
             
             <motion.p
@@ -51,7 +54,7 @@ const HeroSection = () => {
               transition={{ delay: 0.5 }}
               className="text-lg text-primary-foreground/80 mb-8 max-w-lg leading-relaxed"
             >
-              קורס מאתגר ויישומי המציע לכם לרכוש כלים מעשיים וידע בכל הקשור ליבוא, יצוא סחורה וסחר בינלאומי, אשר ייצור עבורכם הזדמנויות לתעסוקה בחברות רבות.
+              {t("hero.desc")}
             </motion.p>
             
             <motion.div
@@ -61,12 +64,12 @@ const HeroSection = () => {
               className="flex flex-wrap gap-4 mb-12"
             >
               <Button variant="hero" size="xl">
-                פרטים על הקורס
+                {t("hero.cta")}
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               <Button variant="heroOutline" size="xl">
                 <Play className="w-5 h-5" />
-                צפה בסרטון
+                {t("hero.video")}
               </Button>
             </motion.div>
 
@@ -115,8 +118,8 @@ const HeroSection = () => {
                 <div className="w-56 h-56 rounded-full bg-gradient-to-br from-secondary to-secondary/80 flex items-center justify-center shadow-2xl">
                   <div className="text-center text-secondary-foreground">
                     <Globe className="w-16 h-16 mx-auto mb-4" />
-                    <div className="text-2xl font-bold">סחר בינלאומי</div>
-                    <div className="text-sm opacity-80">העולם בידיים שלך</div>
+                    <div className="text-2xl font-bold">{t("hero.globe")}</div>
+                    <div className="text-sm opacity-80">{t("hero.globeSub")}</div>
                   </div>
                 </div>
               </div>

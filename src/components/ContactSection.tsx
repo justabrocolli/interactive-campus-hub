@@ -1,36 +1,17 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Phone, Mail, MapPin, Send, ArrowLeft } from "lucide-react";
+import { Phone, Mail, MapPin, Send } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-
-const contactInfo = [
-  {
-    icon: Phone,
-    title: "טלפון",
-    value: "03-1234567",
-    link: "tel:03-1234567",
-  },
-  {
-    icon: Mail,
-    title: "אימייל",
-    value: "info@ofarimacademy.com",
-    link: "mailto:info@ofarimacademy.com",
-  },
-  {
-    icon: MapPin,
-    title: "כתובת",
-    value: "רחוב הברזל 30, תל אביב",
-    link: "#",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -38,11 +19,32 @@ const ContactSection = () => {
     message: "",
   });
 
+  const contactInfo = [
+    {
+      icon: Phone,
+      title: t("contact.phone"),
+      value: "03-1234567",
+      link: "tel:03-1234567",
+    },
+    {
+      icon: Mail,
+      title: t("contact.email"),
+      value: "info@ofarimacademy.com",
+      link: "mailto:info@ofarimacademy.com",
+    },
+    {
+      icon: MapPin,
+      title: t("contact.address"),
+      value: t("contact.addressValue"),
+      link: "#",
+    },
+  ];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "הפנייה נשלחה בהצלחה!",
-      description: "נחזור אליך בהקדם האפשרי.",
+      title: t("contact.success"),
+      description: t("contact.successDesc"),
     });
     setFormData({ name: "", phone: "", email: "", message: "" });
   };
@@ -62,15 +64,15 @@ const ContactSection = () => {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-block px-4 py-2 rounded-full bg-secondary/20 text-secondary-foreground text-sm font-medium mb-4">
-              צור קשר
+              {t("contact.badge")}
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
-              מוכנים להתחיל?
+              {t("contact.title1")}
               <br />
-              <span className="text-secondary">דברו איתנו</span>
+              <span className="text-secondary">{t("contact.title2")}</span>
             </h2>
             <p className="text-lg text-primary-foreground/80 mb-8 leading-relaxed">
-              השאירו פרטים ונציג מטעמנו יחזור אליכם בהקדם לייעוץ אישי ללא עלות וללא התחייבות.
+              {t("contact.desc")}
             </p>
 
             <div className="space-y-4">
@@ -105,17 +107,17 @@ const ContactSection = () => {
               onSubmit={handleSubmit}
               className="p-8 rounded-2xl bg-card shadow-2xl border border-border"
             >
-              <h3 className="text-2xl font-bold text-foreground mb-6">השאירו פרטים</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-6">{t("contact.formTitle")}</h3>
               
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    שם מלא
+                    {t("contact.name")}
                   </label>
                   <Input
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="הזינו את שמכם"
+                    placeholder={t("contact.namePlaceholder")}
                     required
                     className="text-right"
                   />
@@ -123,13 +125,13 @@ const ContactSection = () => {
                 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    טלפון
+                    {t("contact.phone")}
                   </label>
                   <Input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="050-0000000"
+                    placeholder={t("contact.phonePlaceholder")}
                     required
                     className="text-right"
                   />
@@ -137,32 +139,32 @@ const ContactSection = () => {
                 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    אימייל
+                    {t("contact.email")}
                   </label>
                   <Input
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="your@email.com"
+                    placeholder={t("contact.emailPlaceholder")}
                     className="text-right"
                   />
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    הודעה
+                    {t("contact.message")}
                   </label>
                   <Textarea
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="ספרו לנו על עצמכם ומה מעניין אתכם..."
+                    placeholder={t("contact.messagePlaceholder")}
                     rows={4}
                     className="text-right resize-none"
                   />
                 </div>
 
                 <Button type="submit" size="xl" className="w-full">
-                  שלחו פנייה
+                  {t("contact.submit")}
                   <Send className="w-5 h-5" />
                 </Button>
               </div>
