@@ -1,21 +1,23 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { CheckCircle2, Sparkles } from "lucide-react";
-
-const features = [
-  "הכשרה מקצועית ברמה הגבוהה ביותר",
-  "מרצים בכירים מהתעשייה",
-  "ליווי אישי לאורך כל הדרך",
-  "קשרים עסקיים עם חברות מובילות",
-  "סדנאות מעשיות בחו״ל",
-  "תעודה מוכרת בינלאומית",
-  "השמה בחברות מובילות",
-  "רשת בוגרים ענפה",
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const FeaturesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const features = [
+    t("features.1"),
+    t("features.2"),
+    t("features.3"),
+    t("features.4"),
+    t("features.5"),
+    t("features.6"),
+    t("features.7"),
+    t("features.8"),
+  ];
 
   return (
     <section id="features" className="py-24 bg-background relative overflow-hidden">
@@ -29,15 +31,15 @@ const FeaturesSection = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-4">
               <Sparkles className="w-4 h-4" />
-              למה לבחור בנו
+              {t("features.badge")}
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              היתרונות של
+              {t("features.title1")}
               <br />
-              <span className="text-gradient">מכללת עופרים</span>
+              <span className="text-gradient">{t("features.title2")}</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              אנחנו מאמינים שלימודים הם יותר מסתם תיאוריה. במכללת עופרים תקבלו הכשרה מעשית, קשרים אמיתיים בתעשייה, וכל הכלים להצליח בעולם הסחר הבינלאומי.
+              {t("features.desc")}
             </p>
 
             <div className="grid sm:grid-cols-2 gap-4">
@@ -88,8 +90,8 @@ const FeaturesSection = () => {
                   >
                     25+
                   </motion.div>
-                  <div className="text-xl font-medium opacity-90">שנות ניסיון</div>
-                  <div className="text-sm opacity-70 mt-2">בהכשרת אנשי מקצוע מובילים</div>
+                  <div className="text-xl font-medium opacity-90">{t("features.yearsExp")}</div>
+                  <div className="text-sm opacity-70 mt-2">{t("features.yearsExpSub")}</div>
                 </div>
               </div>
 
@@ -105,8 +107,8 @@ const FeaturesSection = () => {
                     <span className="text-2xl">🌍</span>
                   </div>
                   <div>
-                    <div className="font-bold text-foreground">קשרים גלובליים</div>
-                    <div className="text-sm text-muted-foreground">מעל 30 מדינות</div>
+                    <div className="font-bold text-foreground">{t("features.global")}</div>
+                    <div className="text-sm text-muted-foreground">{t("features.globalSub")}</div>
                   </div>
                 </div>
               </motion.div>
@@ -122,8 +124,8 @@ const FeaturesSection = () => {
                     <span className="text-2xl">🎓</span>
                   </div>
                   <div>
-                    <div className="font-bold text-foreground">בוגרים מצליחים</div>
-                    <div className="text-sm text-muted-foreground">מעל 10,000</div>
+                    <div className="font-bold text-foreground">{t("features.grads")}</div>
+                    <div className="text-sm text-muted-foreground">{t("features.gradsSub")}</div>
                   </div>
                 </div>
               </motion.div>
